@@ -14,33 +14,34 @@ public:
         
         ListNode *temp1 = list1;
         ListNode *temp2 = list2;
+        ListNode *newList = new ListNode(-1);
+        ListNode *temp = newList;
         
-        vector<int> v;
-        
-        while(temp1 != NULL){
-            v.push_back(temp1->val);
+        while(temp1 != NULL && temp2 != NULL){
             
-            temp1 = temp1->next;
-        }
-        
-        while(temp2 != NULL){
-            v.push_back(temp2->val);
+            if(temp1->val >= temp2->val){
+                temp->next = new ListNode(temp2->val);
+                temp2 = temp2->next;
+            }
             
-            temp2 = temp2->next;
-        }
-        
-        sort(v.begin() , v.end());
-        
-        ListNode* newList = new ListNode(-1);
-        ListNode* temp = newList;
-        
-        for(int i=0;i<v.size();i++){
+            else {
+                temp->next = new ListNode(temp1->val);
+                temp1 = temp1->next;
+            }
             
-            temp->next = new ListNode(v[i]);
-            
-            temp = temp->next;
+            temp =  temp->next;
             
         }
+        
+        if (temp1 != nullptr) {
+            temp->next = temp1;
+        } else {
+            temp->next = temp2;
+        }
+        
+        
+        
+        
         
         return newList->next;
         
