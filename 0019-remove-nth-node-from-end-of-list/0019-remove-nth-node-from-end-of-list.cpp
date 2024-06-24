@@ -17,35 +17,27 @@ public:
         }
         
         ListNode* temp = head;
+        ListNode* fast = head;
+        ListNode* slow = head;
         
-        int c = 0;
-        
-        while(temp!=NULL){
-            c++;    
-            temp = temp->next; 
+        while(n--){
+            fast = fast->next;
         }
         
-        if(c == n){
-            ListNode* newhead = head->next;   
-            delete(head);
-            
-            return newhead;
+        
+        if(fast == NULL){
+             return head->next;
         }
         
-        c -= n;
         
-        temp = head;
         
-        while(temp != NULL){
-            c--;
-            if(c==0){
-                break;
-            }
-            temp = temp->next;
+        while(fast->next != NULL){
+            fast = fast->next;
+            slow = slow->next;
         }
         
-        ListNode* del = temp->next;
-        temp->next = temp->next->next;
+        ListNode* del = slow->next;
+        slow->next = slow->next->next;
         delete(del);
         
         return head;
